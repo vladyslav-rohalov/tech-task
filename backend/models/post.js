@@ -1,57 +1,27 @@
 const { Schema, model } = require('mongoose');
-const { handleMogooseError } = require('../helpers');
-const Joi = require('joi');
+const { handleMongooseError } = require('../helpers');
 
-const addSchema = Joi.object({
-  name: Joi.string().required(),
-  email: Joi.string().allow('').optional(),
-  phone: Joi.string().required(),
-  favorite: Joi.boolean(),
-  avatar: Joi.string(),
-});
-
-const updateFavoriteSchema = Joi.object({
-  favorite: Joi.boolean().required(),
-});
-
-const contactSchema = new Schema(
+const postSchema = new Schema(
   {
-    name: {
+    title: {
       type: String,
-      required: [true, 'Set name for contact'],
+      default: '',
     },
-    email: {
+    description: {
       type: String,
-    },
-    phone: {
-      type: String,
-      required: [true, 'Set phone for contact'],
-    },
-    avatarURL: {
-      type: String,
-    },
-    favorite: {
-      type: Boolean,
-      default: false,
+      default: '',
     },
     owner: {
       type: Schema.Types.ObjectId,
       ref: 'user',
+      required: [true, 'Owner is required'],
     },
   },
-  { versionKey: false, timestamps: true }
+  { versionKey: false }
 );
 
-const schemas = {
-  addSchema,
-  updateFavoriteSchema,
-};
+postSchema.post('save', handleMongooseError);
 
-contactSchema.post('save', handleMogooseError);
+const Post = model('post', postSchema);
 
-const Contact = model('contact', contactSchema);
-
-module.exports = {
-  Contact,
-  schemas,
-};
+module.exports = Post;
