@@ -5,6 +5,7 @@ require('dotenv').config();
 
 const authRouter = require('./routes/authRoutes');
 const postRouter = require('./routes/postRoutes');
+const commentRouter = require('./routes/commentRoutes');
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(express.json());
 
 app.use('/users', authRouter);
 app.use('/posts', postRouter);
+app.use('/comment', commentRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: 'Not found' });

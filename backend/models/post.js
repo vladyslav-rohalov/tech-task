@@ -5,11 +5,11 @@ const postSchema = new Schema(
   {
     title: {
       type: String,
-      default: '',
+      required: [true, 'Title is required'],
     },
     description: {
       type: String,
-      default: '',
+      required: [true, 'Description is required'],
     },
     owner: {
       type: Schema.Types.ObjectId,
