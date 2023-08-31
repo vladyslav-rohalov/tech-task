@@ -18,7 +18,7 @@ const commentSchema = new Schema(
       required: [true, 'Owner is required'],
     },
   },
-  { versionKey: false }
+  { versionKey: false, timestamps: true }
 );
 
 commentSchema.post('save', handleMongooseError);

@@ -1,4 +1,5 @@
 const Post = require('../models/post');
+const User = require('../models/user');
 const { HttpError } = require('../helpers');
 const { controllerWrapper } = require('../decorators');
 
@@ -15,6 +16,7 @@ const addPost = async (req, res) => {
 
 const getAllPosts = async (req, res) => {
   const result = await Post.find({}, '-createdAt -updatedAt');
+
   if (!result) {
     throw HttpError(404, 'Not found');
   }

@@ -7,9 +7,13 @@ const postSchema = new Schema(
       type: String,
       required: [true, 'Title is required'],
     },
-    description: {
+    body: {
       type: String,
-      required: [true, 'Description is required'],
+      required: [true, 'Body is required'],
+    },
+    comments: {
+      type: Schema.Types.Array,
+      default: [],
     },
     owner: {
       type: Schema.Types.ObjectId,
@@ -17,7 +21,7 @@ const postSchema = new Schema(
       required: [true, 'Owner is required'],
     },
   },
-  { versionKey: false }
+  { versionKey: false,timestamps: true }
 );
 
 postSchema.post('save', handleMongooseError);

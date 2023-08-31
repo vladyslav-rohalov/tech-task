@@ -7,9 +7,7 @@ const router = express.Router();
 
 router.use(authenticate);
 
-router.get('/', commentController.getAllComments);
-
-router.post('/', commentController.addComment);
+router.post('/', commentController.createComment);
 
 router.patch(
   '/:id',

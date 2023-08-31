@@ -1,6 +1,6 @@
 const express = require('express');
 const postController = require('../controllers/postController');
-const { postSchema } = require('../schemas');
+const { postSchema, commentSchema } = require('../schemas');
 const { authenticate, validateBody, isValidId } = require('../middlewares');
 
 const router = express.Router();
