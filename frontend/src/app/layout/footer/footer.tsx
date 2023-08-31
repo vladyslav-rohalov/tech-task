@@ -7,8 +7,6 @@ export default function Footer() {
   return (
     <Box
       sx={{
-        position: "fixed",
-        bottom: 0,
         width: "100%",
         bgcolor: "primary.main",
         py: 3,
