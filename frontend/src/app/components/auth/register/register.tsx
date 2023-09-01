@@ -3,11 +3,11 @@ import { Controller } from "react-hook-form";
 import { FormControl, Button, TextField } from "@mui/material";
 import { InputLabel, Select, MenuItem } from "@mui/material";
 import PasswordFiled from "../passwordField/passwordField";
-import { FormData } from "@/app/utils/interfaces";
+import { IFormData } from "@/app/utils/interfaces";
 
 interface PropsTypes {
   toggleAuth: (event: React.MouseEvent<HTMLElement>) => void;
-  handleRegister: (formData: FormData) => void;
+  handleRegister: (formData: IFormData) => void;
   showPassword: boolean;
   handleShowPassword: (event: React.MouseEvent<HTMLElement>) => void;
 }
@@ -28,17 +28,19 @@ export default function Registration({
         handleRegister({ name, email, role, password })
       )}
     >
-      <InputLabel id="role-selector">Role</InputLabel>
+      <InputLabel id="role-label">Role</InputLabel>
       <Controller
         control={control}
         name="role"
-        defaultValue="Author"
+        defaultValue=""
         render={({ field: { onChange, value } }) => (
           <Select
             onChange={onChange}
+            required
             value={value}
-            labelId="role-selector"
-            id="role-selector"
+            labelId="role-label"
+            id="role-select"
+            label="Role"
             sx={{ mb: 2 }}
           >
             <MenuItem value={"Author"}>Author</MenuItem>

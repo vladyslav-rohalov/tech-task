@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form";
 import { FormControl, Button, TextField } from "@mui/material";
 import PasswordFiled from "../passwordField/passwordField";
-import { FormData } from "@/app/utils/interfaces";
+import { IFormData } from "@/app/utils/interfaces";
 
 interface PropsTypes {
   toggleAuth: (event: React.MouseEvent<HTMLElement>) => void;
-  handleLogin: (formData: FormData) => void;
+  handleLogin: (formData: IFormData) => void;
   handleShowPassword: (event: React.MouseEvent<HTMLElement>) => void;
   showPassword: boolean;
 }
@@ -13,8 +13,8 @@ interface PropsTypes {
 export default function Login({
   toggleAuth,
   handleLogin,
-  showPassword,
   handleShowPassword,
+  showPassword,
 }: PropsTypes) {
   const { register, handleSubmit } = useForm();
 
