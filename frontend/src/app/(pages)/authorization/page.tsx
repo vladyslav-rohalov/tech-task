@@ -1,8 +1,12 @@
 "use client";
 import { useState } from "react";
+import { useMutation } from "react-query";
+import axios from "axios";
 import { Container } from "@mui/material";
 import Auth from "@/app/components/auth/auth";
 import { IFormData } from "@/app/utils/interfaces";
+
+axios.defaults.baseURL = "http://localhost:3001";
 
 export default function Authorization() {
   const [login, setLogin] = useState(true);
@@ -15,7 +19,15 @@ export default function Authorization() {
   };
 
   const handleRegister = (userData: IFormData) => {
-    console.log(userData);
+    async function registerUser() {
+      try {
+        const response = await axios.post("/users/register", userData);
+        console.log(response);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    registerUser();
   };
 
   const handleAuthMethod = () => {

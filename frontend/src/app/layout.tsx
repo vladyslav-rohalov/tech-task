@@ -3,7 +3,7 @@ import { myTheme } from "./utils/theme";
 import type { Metadata } from "next";
 import { Lato } from "next/font/google";
 import { ThemeProvider } from "@mui/material";
-import ReduxProvider from "./redux/provider";
+import Providers from "./utils/providers";
 import Header from "./layout/header/header";
 import Footer from "./layout/footer/footer";
 
@@ -29,11 +29,11 @@ export default function RootLayout({
       </head>
       <body className={lato.className}>
         <ThemeProvider theme={myTheme}>
-          <ReduxProvider>
+          <Providers>
             <Header />
             <main>{children}</main>
             <Footer />
-          </ReduxProvider>
+          </Providers>
         </ThemeProvider>
       </body>
     </html>
