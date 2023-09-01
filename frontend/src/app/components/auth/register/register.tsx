@@ -9,14 +9,14 @@ interface PropsTypes {
   toggleAuth: (event: React.MouseEvent<HTMLElement>) => void;
   handleRegister: (userData: UserDataReg) => void;
   showPassword: boolean;
-  handleClick: (event: React.MouseEvent<HTMLElement>) => void;
+  handleShowPassword: (event: React.MouseEvent<HTMLElement>) => void;
 }
 
 export default function Registration({
   toggleAuth,
   handleRegister,
   showPassword,
-  handleClick,
+  handleShowPassword,
 }: PropsTypes) {
   const [role, setRole] = useState("");
 
@@ -64,7 +64,7 @@ export default function Registration({
         sx={{ mt: 2 }}
         type="email"
       />
-      <PasswordFiled showPassword={showPassword} handleClick={handleClick} />
+      <PasswordFiled showPassword={showPassword} handleClick={handleShowPassword} />
 
       <Button
         variant="contained"

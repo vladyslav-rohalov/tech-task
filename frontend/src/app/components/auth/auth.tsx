@@ -1,34 +1,29 @@
-"use client";
-
-import { useState } from "react";
 import { Paper, Typography, Divider } from "@mui/material";
 import Login from "./login/login";
 import Registration from "./register/register";
-import { UserDataReg, UserDataLog } from "@/app/utils/interfaces"; 
+import { UserDataReg, UserDataLog } from "@/app/utils/interfaces";
 
 interface PropsTypes {
   toggleAuth: (event: React.MouseEvent<HTMLElement>) => void;
   login: boolean;
+  showPassword: boolean;
+  handleShowPassword: (event: React.MouseEvent<HTMLElement>) => void;
+  handleLogin: (userData: UserDataLog) => void;
+  handleRegister: (userData: UserDataReg) => void;
 }
 
-export default function Auth({ toggleAuth, login }: PropsTypes) {
-  const [showPassword, setShowPassword] = useState(false);
-
-  const handleClickShowPassword = () => setShowPassword(!showPassword);
-
-  const handleLogin = (userData: UserDataLog) => {
-    console.log(userData);
-  };
-
-  const handleRegister = (userData: UserDataReg) => {
-    console.log(userData);
-  };
-
+export default function Auth({
+  toggleAuth,
+  login,
+  showPassword,
+  handleShowPassword,
+  handleLogin,
+  handleRegister,
+}: PropsTypes) {
   return (
     <Paper
       sx={{
-        width: "600px",
-        height: "500px",
+        maxWidth: "600px",
         margin: "0 auto ",
         p: 4,
         border: "1px solid ",
@@ -42,14 +37,14 @@ export default function Auth({ toggleAuth, login }: PropsTypes) {
           toggleAuth={toggleAuth}
           handleLogin={handleLogin}
           showPassword={showPassword}
-          handleClick={handleClickShowPassword}
+          handleShowPassword={handleShowPassword}
         />
       ) : (
         <Registration
           toggleAuth={toggleAuth}
           handleRegister={handleRegister}
           showPassword={showPassword}
-          handleClick={handleClickShowPassword}
+          handleShowPassword={handleShowPassword}
         />
       )}
     </Paper>

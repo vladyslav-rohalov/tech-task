@@ -5,7 +5,7 @@ import { UserDataLog } from "@/app/utils/interfaces";
 interface PropsTypes {
   toggleAuth: (event: React.MouseEvent<HTMLElement>) => void;
   handleLogin: (userData: UserDataLog) => void;
-  handleClick: (event: React.MouseEvent<HTMLElement>) => void;
+  handleShowPassword: (event: React.MouseEvent<HTMLElement>) => void;
   showPassword: boolean;
 }
 
@@ -13,7 +13,7 @@ export default function Login({
   toggleAuth,
   handleLogin,
   showPassword,
-  handleClick,
+  handleShowPassword,
 }: PropsTypes) {
   const onLogin = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
@@ -39,7 +39,7 @@ export default function Login({
         sx={{ mt: 2 }}
         type="email"
       />
-      <PasswordFiled showPassword={showPassword} handleClick={handleClick} />
+      <PasswordFiled showPassword={showPassword} handleClick={handleShowPassword} />
       <Button
         variant="contained"
         sx={{ mt: 2, height: 48, bgcolor: "primary.light" }}
