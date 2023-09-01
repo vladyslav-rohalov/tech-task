@@ -1,11 +1,6 @@
-export interface UserDataReg {
-  role: string;
-  name: string;
+export interface FormData {
+  name?: string;
   email: string;
-  password: string;
-}
-
-export interface UserDataLog {
-  email: string;
+  role?: string;
   password: string;
 }

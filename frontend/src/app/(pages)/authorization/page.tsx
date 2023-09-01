@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Container } from "@mui/material";
 import Auth from "@/app/components/auth/auth";
-import { UserDataReg, UserDataLog } from "@/app/utils/interfaces";
+import { FormData } from "@/app/utils/interfaces";
 
 export default function Authorization() {
   const [login, setLogin] = useState(true);
@@ -10,11 +10,11 @@ export default function Authorization() {
 
   const handleShowPassword = () => setShowPassword(!showPassword);
 
-  const handleLogin = (userData: UserDataLog) => {
+  const handleLogin = (userData: FormData) => {
     console.log(userData);
   };
 
-  const handleRegister = (userData: UserDataReg) => {
+  const handleRegister = (userData: FormData) => {
     console.log(userData);
   };
 

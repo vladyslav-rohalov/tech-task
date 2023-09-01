@@ -1,15 +1,15 @@
 import { Paper, Typography, Divider } from "@mui/material";
 import Login from "./login/login";
 import Registration from "./register/register";
-import { UserDataReg, UserDataLog } from "@/app/utils/interfaces";
+import { FormData } from "@/app/utils/interfaces";
 
 interface PropsTypes {
   toggleAuth: (event: React.MouseEvent<HTMLElement>) => void;
   login: boolean;
   showPassword: boolean;
   handleShowPassword: (event: React.MouseEvent<HTMLElement>) => void;
-  handleLogin: (userData: UserDataLog) => void;
-  handleRegister: (userData: UserDataReg) => void;
+  handleLogin: (formData: FormData) => void;
+  handleRegister: (formData: FormData) => void;
 }
 
 export default function Auth({

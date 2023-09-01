@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { Controller } from "react-hook-form";
 import { FormControl, Button, TextField } from "@mui/material";
 import { InputLabel, Select, MenuItem } from "@mui/material";
 import PasswordFiled from "../passwordField/passwordField";
-import { SelectChangeEvent } from "@mui/material";
-import { UserDataReg } from "@/app/utils/interfaces";
+import { FormData } from "@/app/utils/interfaces";
 
 interface PropsTypes {
   toggleAuth: (event: React.MouseEvent<HTMLElement>) => void;
-  handleRegister: (userData: UserDataReg) => void;
+  handleRegister: (formData: FormData) => void;
   showPassword: boolean;
   handleShowPassword: (event: React.MouseEvent<HTMLElement>) => void;
 }
@@ -18,53 +18,54 @@ export default function Registration({
   showPassword,
   handleShowPassword,
 }: PropsTypes) {
-  const [role, setRole] = useState("");
-
-  const handleChange = (e: SelectChangeEvent<string>): void => {
-    setRole(e.target.value);
-  };
-
-  const onRegister = (e: React.FormEvent<HTMLFormElement>): void => {
-    e.preventDefault();
-    const formElements = e.currentTarget.elements as HTMLFormControlsCollection;
-    const name = (formElements.namedItem("name") as HTMLInputElement).value;
-    const email = (formElements.namedItem("email") as HTMLInputElement).value;
-    const password = (formElements.namedItem("password") as HTMLInputElement)
-      .value;
-
-    const userData = { role, name, email, password };
-
-    handleRegister(userData);
-  };
+  const { register, handleSubmit, control } = useForm();
 
   return (
     <FormControl
       sx={{ display: "flex", width: "100%" }}
       component="form"
-      onSubmit={onRegister}
+      onSubmit={handleSubmit(({ name, email, role, password }) =>
+        handleRegister({ name, email, role, password })
+      )}
     >
-      <InputLabel id="test-select-label">Role</InputLabel>
-      <Select
+      <InputLabel id="role-selector">Role</InputLabel>
+      <Controller
+        control={control}
+        name="role"
+        defaultValue="Author"
+        render={({ field: { onChange, value } }) => (
+          <Select
+            onChange={onChange}
+            value={value}
+            labelId="role-selector"
+            id="role-selector"
+            sx={{ mb: 2 }}
+          >
+            <MenuItem value={"Author"}>Author</MenuItem>
+            <MenuItem value={"Commentator"}>Commentator</MenuItem>
+          </Select>
+        )}
+      />
+      <TextField
         required
-        labelId="test-select-label"
-        id="test-select-label"
-        value={role}
-        label="Role"
-        onChange={handleChange}
-        sx={{ mb: 2 }}
-      >
-        <MenuItem value={"Author"}>Author</MenuItem>
-        <MenuItem value={"Commentator"}>Commentator</MenuItem>
-      </Select>
-      <TextField required id="name" label="Name" type="text" />
+        id="name"
+        label="Name"
+        type="text"
+        {...register("name")}
+      />
       <TextField
         required
         id="email"
         label="Email"
         sx={{ mt: 2 }}
         type="email"
+        {...register("email")}
       />
-      <PasswordFiled showPassword={showPassword} handleClick={handleShowPassword} />
+      <PasswordFiled
+        showPassword={showPassword}
+        handleClick={handleShowPassword}
+        register={register}
+      />
 
       <Button
         variant="contained"
