@@ -12,7 +12,7 @@ export default function CreatePost({ handleComment }: PropsTypes) {
   const { register, handleSubmit, reset } = useForm();
 
   return (
-    <Accordion sx={{ width: "100%", mb: 4 }} defaultExpanded={true}>
+    <Accordion sx={{ width: "100%", mb: 4 }} defaultExpanded={false}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon sx={{ color: "primary.light" }} />}
         aria-controls="panel1a-content"

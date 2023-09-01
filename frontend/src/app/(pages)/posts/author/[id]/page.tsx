@@ -1,19 +1,15 @@
 "use client";
+import { useParams, usePathname } from "next/navigation";
 import { Container, Typography } from "@mui/material";
-import { usePathname } from "next/navigation";
-import Breadcrumbs from "@/app/layout/breacrumbs/breadcrumbs";
 import PostsList from "@/app/components/postsList/posts";
-import CreatePost from "@/app/components/createPost/createPost";
-import { IPost } from "@/app/utils/interfaces";
-import { posts } from "../../utils/tmpData";
+import { posts } from "@/app/utils/tmpData";
+import Breadcrumbs from "@/app/layout/breacrumbs/breadcrumbs";
 
-export default function Posts() {
+//need to add Author posts
+export default function AuthorFeed() {
+  const { id } = useParams();
   const path = usePathname().split("/");
   path.splice(0, 1);
-
-  const handleComment = (data: IPost) => {
-    console.log(data);
-  };
 
   return (
     <Container
@@ -28,7 +24,6 @@ export default function Posts() {
       <Typography component="h1" variant="h3" sx={{ mb: 2 }}>
         Posts
       </Typography>
-      <CreatePost handleComment={handleComment} />
       <PostsList posts={posts} />
     </Container>
   );
