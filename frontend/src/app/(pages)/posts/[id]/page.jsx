@@ -1,6 +1,6 @@
 "use client";
-import { useAuth } from "@/app/hooks/useAuth";
-import { redirect } from "next/navigation";
+
+import authGuard from "@/app/utils/authGuard";
 import { useParams, usePathname } from "next/navigation";
 import { Container } from "@mui/material";
 import AuthorPost from "@/app/components/post/authorPost";
@@ -9,8 +9,8 @@ import { comments } from "@/app/utils/tmpData";
 import Breadcrumbs from "@/app/layout/breacrumbs/breadcrumbs";
 
 export default function Post() {
-  const { isLogin } = useAuth();
-  if (!isLogin) redirect("/authorization");
+  authGuard();
+
   const { id } = useParams();
   const path = usePathname().split("/");
   path.splice(0, 1);
