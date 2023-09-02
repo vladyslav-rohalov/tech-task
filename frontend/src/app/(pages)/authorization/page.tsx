@@ -1,33 +1,38 @@
 "use client";
-import { useState } from "react";
-import { useMutation } from "react-query";
-import axios from "axios";
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/app/redux/store";
+import { register, logIn, refreshUser } from "@/app/redux/auth/operations";
+import { redirect } from "next/navigation";
+import { useAuth } from "@/app/hooks/useAuth";
 import { Container } from "@mui/material";
 import Auth from "@/app/components/auth/auth";
 import { IFormData } from "@/app/utils/interfaces";
-
-axios.defaults.baseURL = "http://localhost:3001";
 
 export default function Authorization() {
   const [login, setLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
 
+  const { isLogin } = useAuth();
+
+  if (isLogin) redirect("/");
+  console.log(isLogin);
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(refreshUser());
+  }, [dispatch]);
+
   const handleShowPassword = () => setShowPassword(!showPassword);
 
   const handleLogin = (userData: IFormData) => {
     console.log(userData);
+    dispatch(logIn(userData));
   };
 
   const handleRegister = (userData: IFormData) => {
-    async function registerUser() {
-      try {
-        const response = await axios.post("/users/register", userData);
-        console.log(response);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    registerUser();
+    dispatch(register(userData));
   };
 
   const handleAuthMethod = () => {

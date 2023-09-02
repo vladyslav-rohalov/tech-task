@@ -2,16 +2,27 @@
 import { useState } from "react";
 import { IconButton, Popover, Typography } from "@mui/material";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/app/redux/store";
+import { logOut } from "@/app/redux/auth/operations";
 
 export default function PersonalAccount() {
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = useState<
+    (EventTarget & HTMLButtonElement) | null
+  >(null);
 
-  const handleClick = (event) => {
+  const dispatch = useDispatch<AppDispatch>();
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    dispatch(logOut());
   };
 
   const open = Boolean(anchorEl);
@@ -39,7 +50,9 @@ export default function PersonalAccount() {
           horizontal: "center",
         }}
       >
-        <Typography sx={{ p: 2 }}>Logout</Typography>
+        <Typography sx={{ p: 2 }} onClick={handleLogout}>
+          Logout
+        </Typography>
       </Popover>
     </>
   );

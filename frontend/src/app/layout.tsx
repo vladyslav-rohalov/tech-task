@@ -1,11 +1,16 @@
+"use client";
 import "./globals.css";
+import { useEffect } from "react";
 import { myTheme } from "./utils/theme";
 import type { Metadata } from "next";
 import { Lato } from "next/font/google";
 import { ThemeProvider } from "@mui/material";
-import Providers from "./utils/providers";
+import ReduxProvider from "./redux/provider";
 import Header from "./layout/header/header";
 import Footer from "./layout/footer/footer";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/app/redux/store";
+import { refreshUser } from "@/app/redux/auth/operations";
 
 const lato = Lato({
   subsets: ["latin"],
@@ -22,6 +27,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+
+
   return (
     <html lang="en">
       <head>
@@ -29,11 +36,11 @@ export default function RootLayout({
       </head>
       <body className={lato.className}>
         <ThemeProvider theme={myTheme}>
-          <Providers>
+          <ReduxProvider>
             <Header />
             <main>{children}</main>
             <Footer />
-          </Providers>
+          </ReduxProvider>
         </ThemeProvider>
       </body>
     </html>
