@@ -1,6 +1,4 @@
-"use client";
 import "./globals.css";
-import { useEffect } from "react";
 import { myTheme } from "./utils/theme";
 import type { Metadata } from "next";
 import { Lato } from "next/font/google";
@@ -8,9 +6,7 @@ import { ThemeProvider } from "@mui/material";
 import ReduxProvider from "./redux/provider";
 import Header from "./layout/header/header";
 import Footer from "./layout/footer/footer";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/app/redux/store";
-import { refreshUser } from "@/app/redux/auth/operations";
+
 
 const lato = Lato({
   subsets: ["latin"],

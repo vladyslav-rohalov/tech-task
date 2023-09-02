@@ -1,4 +1,6 @@
 "use client";
+import { useAuth } from "@/app/hooks/useAuth";
+import { redirect } from "next/navigation";
 import { Container, Typography } from "@mui/material";
 import { usePathname } from "next/navigation";
 import Breadcrumbs from "@/app/layout/breacrumbs/breadcrumbs";
@@ -8,11 +10,13 @@ import { IPost } from "@/app/utils/interfaces";
 import { posts } from "../../utils/tmpData";
 
 export default function Posts() {
+  const { isLogin } = useAuth();
+  if (!isLogin) redirect("/authorization");
   const path = usePathname().split("/");
   path.splice(0, 1);
 
   const handleComment = (data: IPost) => {
-    console.log(data);
+    // qweqweqweqewq
   };
 
   return (

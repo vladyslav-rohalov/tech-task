@@ -1,8 +1,8 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/app/redux/store";
-import { register, logIn, refreshUser } from "@/app/redux/auth/operations";
+import { register, logIn } from "@/app/redux/auth/operations";
 import { redirect } from "next/navigation";
 import { useAuth } from "@/app/hooks/useAuth";
 import { Container } from "@mui/material";
@@ -13,16 +13,9 @@ export default function Authorization() {
   const [login, setLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
 
-  const { isLogin } = useAuth();
-
-  if (isLogin) redirect("/");
-  console.log(isLogin);
-
   const dispatch = useDispatch<AppDispatch>();
-
-  useEffect(() => {
-    dispatch(refreshUser());
-  }, [dispatch]);
+  const { isLogin } = useAuth();
+  if (isLogin) redirect("/posts");
 
   const handleShowPassword = () => setShowPassword(!showPassword);
 

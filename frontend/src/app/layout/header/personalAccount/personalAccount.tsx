@@ -1,16 +1,23 @@
 "use client";
 import { useState } from "react";
-import { IconButton, Popover, Typography } from "@mui/material";
+import { redirect } from "next/navigation";
+import Link from "next/link";
+import { IconButton, Popover, ListItemText, List } from "@mui/material";
+import { ListItem, ListItemIcon, ListItemButton } from "@mui/material";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import LoginIcon from "@mui/icons-material/Login";
+import LogoutIcon from "@mui/icons-material/Logout";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/app/redux/store";
 import { logOut } from "@/app/redux/auth/operations";
+import { useAuth } from "@/app/hooks/useAuth";
 
 export default function PersonalAccount() {
   const [anchorEl, setAnchorEl] = useState<
     (EventTarget & HTMLButtonElement) | null
   >(null);
-
+  const { isLogin } = useAuth();
   const dispatch = useDispatch<AppDispatch>();
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -23,6 +30,7 @@ export default function PersonalAccount() {
 
   const handleLogout = () => {
     dispatch(logOut());
+    redirect("/");
   };
 
   const open = Boolean(anchorEl);
@@ -50,9 +58,41 @@ export default function PersonalAccount() {
           horizontal: "center",
         }}
       >
-        <Typography sx={{ p: 2 }} onClick={handleLogout}>
-          Logout
-        </Typography>
+        <List>
+          {isLogin ? (
+            <ListItem disablePadding onClick={handleLogout}>
+              <ListItemButton>
+                <ListItemIcon>
+                  <LogoutIcon />
+                </ListItemIcon>
+                <ListItemText primary="Logout" />
+              </ListItemButton>
+            </ListItem>
+          ) : (
+            <>
+              <ListItem disablePadding>
+                <Link href="/authorization">
+                  <ListItemButton>
+                    <ListItemIcon>
+                      <LoginIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Login" />
+                  </ListItemButton>
+                </Link>
+              </ListItem>
+              <ListItem disablePadding>
+                <Link href="/authorization">
+                  <ListItemButton>
+                    <ListItemIcon>
+                      <PersonAddIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Register" />
+                  </ListItemButton>
+                </Link>
+              </ListItem>
+            </>
+          )}
+        </List>
       </Popover>
     </>
   );

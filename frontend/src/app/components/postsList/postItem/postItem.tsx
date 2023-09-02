@@ -14,8 +14,8 @@ export default function PostItem({ post }: { post: IPosts }) {
     }
   };
 
-  const postUrl = window.location.href + "/" + id;
-  const userUrl = window.location.href + "/author/" + id;
+  const postUrl = "posts/" + id;
+  const userUrl = "posts/author/" + id;
 
   return (
     <Card id={id} sx={{ position: "relative", height: 280 }}>

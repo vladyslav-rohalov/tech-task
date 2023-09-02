@@ -1,9 +1,19 @@
 "use client";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/app/redux/store";
+import { refreshUser } from "@/app/redux/auth/operations";
 import { AppBar, Container, Toolbar } from "@mui/material";
 import Logo from "./logo/logo";
 import PersonalAccount from "./personalAccount/personalAccount";
 
 export default function Header() {
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(refreshUser());
+  }, [dispatch]);
+
   return (
     <AppBar
       sx={{
