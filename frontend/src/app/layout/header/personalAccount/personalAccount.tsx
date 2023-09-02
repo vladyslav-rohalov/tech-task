@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { IconButton, Popover, ListItemText, List } from "@mui/material";
 import { ListItem, ListItemIcon, ListItemButton } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -17,7 +18,7 @@ export default function PersonalAccount() {
   const [anchorEl, setAnchorEl] = useState<
     (EventTarget & HTMLButtonElement) | null
   >(null);
-  const { isLogin } = useAuth();
+  const { isLogin, user } = useAuth();
   const dispatch = useDispatch<AppDispatch>();
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -36,7 +37,12 @@ export default function PersonalAccount() {
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
   return (
-    <>
+    <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+      {isLogin && (
+        <Typography component="p" variant="h5">
+          Hi, {user.name}
+        </Typography>
+      )}
       <IconButton
         color="inherit"
         aria-label="personal account"
@@ -94,6 +100,6 @@ export default function PersonalAccount() {
           )}
         </List>
       </Popover>
-    </>
+    </Box>
   );
 }
