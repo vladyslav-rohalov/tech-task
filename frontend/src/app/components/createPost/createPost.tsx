@@ -5,10 +5,10 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { IPost } from "@/app/utils/interfaces";
 
 interface PropsTypes {
-  handleComment: (formData: IPost) => void;
+  handleAddPost: (formData: IPost) => void;
 }
 
-export default function CreatePost({ handleComment }: PropsTypes) {
+export default function CreatePost({ handleAddPost }: PropsTypes) {
   const { register, handleSubmit, reset } = useForm();
 
   return (
@@ -26,7 +26,7 @@ export default function CreatePost({ handleComment }: PropsTypes) {
           sx={{ display: "flex", width: "100%", pl: 2 }}
           component="form"
           onSubmit={handleSubmit(({ title, body }) => {
-            handleComment({ title, body });
+            handleAddPost({ title, body });
             reset();
           })}
         >
@@ -43,6 +43,7 @@ export default function CreatePost({ handleComment }: PropsTypes) {
             id="body"
             label="Text"
             multiline
+            fullWidth
             inputProps={{
               style: {
                 height: "100px",
