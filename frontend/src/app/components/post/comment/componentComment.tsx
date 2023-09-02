@@ -4,10 +4,10 @@ import { FormControl, TextField, InputAdornment } from "@mui/material";
 import { Paper } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import FaceIcon from "@mui/icons-material/Face";
-import { IComments, IComment } from "@/app/utils/interfaces";
+import { IComment } from "@/app/utils/interfaces";
 
 interface PropsTypes {
-  comments: IComments[];
+  comments: IComment[];
   handleSendComment: (comment: IComment) => void;
 }
 
@@ -33,10 +33,10 @@ export default function ComponentComment({
       {comments &&
         comments.map((item) => {
           return (
-            <Paper key={item.id} sx={{ ml: 2, my: 1, p: 1 }}>
+            <Paper key={item._id} sx={{ ml: 2, my: 1, p: 1 }}>
               <Box sx={{ display: "flex", flexDirection: "row" }}>
                 <FaceIcon sx={{ color: "primary.hot" }} />
-                <Typography sx={{ ml: 1 }}>{item.name}</Typography>
+                {/* <Typography sx={{ ml: 1 }}>{item.name}</Typography> */}
               </Box>
               <Divider />
               <Typography sx={{ mt: 1 }}>{item.comment}</Typography>

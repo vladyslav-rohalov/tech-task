@@ -5,23 +5,46 @@ export interface IFormData {
   password: string;
 }
 
-export interface IPosts {
-  id: string;
-  title: string;
-  body: string;
+export interface IComment {
+  comment: string;
+  parentPost?: string;
+  owner?: string;
+  _id?: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface IPost {
+  _id?: string;
   title: string;
   body: string;
+  comments?: IComment[];
+  owner?: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
-export interface IComment {
-  comment: string;
+export interface IPostsState {
+  items: IPost[];
+  isError: string | null;
+  isLoading: boolean;
 }
 
-export interface IComments {
-  id: string;
-  comment: string;
+export interface IUser {
   name: string;
+  email: string;
+  role: string;
+}
+
+export interface IAuthState {
+  user: IUser | null;
+  token: string | null;
+  isLogin: boolean;
+  isError: string | null;
+  isLoading: boolean;
+}
+
+export interface RootState {
+  auth: IAuthState;
+  posts: IPostsState;
 }

@@ -1,6 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authSlice from "./auth/slice";
+import postsSlice from "./posts/slice";
 import storage from "redux-persist/lib/storage";
+import { IAuthState, IPostsState } from "../utils/interfaces";
+
 import {
   persistStore,
   persistReducer,
@@ -18,15 +21,10 @@ const authPersistConfig = {
   whitelist: ["token"],
 };
 
-// const cartPersistConfig = {
-//   key: "cart",
-//   storage,
-//   whitelist: ["items"],
-// };
-
 export const store = configureStore({
   reducer: {
-    auth: persistReducer(authPersistConfig, authSlice),
+    auth: persistReducer<IAuthState>(authPersistConfig, authSlice),
+    posts: postsSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -40,4 +38,9 @@ export const persistor = persistStore(store);
 
 export type AppDispatch = typeof store.dispatch;
 
-export type RootState = ReturnType<typeof store.getState>;
+export interface RootState {
+  auth: IAuthState;
+  posts: IPostsState;
+}
+
+// export type RootState = ReturnType<typeof store.getState>;

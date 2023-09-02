@@ -16,8 +16,8 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/users', authRouter);
-app.use('/posts', postRouter);
-app.use('/comment', commentRouter);
+app.use('/api/posts', postRouter);
+app.use('/api/comment', commentRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: 'Not found' });

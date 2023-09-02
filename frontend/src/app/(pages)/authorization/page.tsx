@@ -20,7 +20,6 @@ export default function Authorization() {
   const handleShowPassword = () => setShowPassword(!showPassword);
 
   const handleLogin = (userData: IFormData) => {
-    console.log(userData);
     dispatch(logIn(userData));
   };
 
