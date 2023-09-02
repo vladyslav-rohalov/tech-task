@@ -1,10 +1,10 @@
-import { IPosts } from "@/app/utils/interfaces";
 import Grid from "@mui/material/Unstable_Grid2";
 import { Box } from "@mui/material";
 import PostItem from "./postItem/postItem";
+import { IPost } from "@/app/utils/interfaces";
 
 interface PropsTypes {
-  posts: IPosts[];
+  posts: IPost[];
 }
 
 export default function PostsList({ posts }: PropsTypes) {
@@ -20,7 +20,7 @@ export default function PostsList({ posts }: PropsTypes) {
         {posts &&
           posts.map((post) => {
             return (
-              <Grid xs={12} sm={6} md={4} lg={3} key={post.id} component="li">
+              <Grid xs={12} sm={6} md={4} lg={3} key={post._id} component="li">
                 <PostItem post={post} />
               </Grid>
             );

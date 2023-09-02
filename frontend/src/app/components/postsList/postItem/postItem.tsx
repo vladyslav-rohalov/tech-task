@@ -1,12 +1,12 @@
-import { IPosts } from "@/app/utils/interfaces";
+import { IPost } from "@/app/utils/interfaces";
 import Link from "next/link";
 import { Box, Divider } from "@mui/material";
 import { Card, CardContent, Typography } from "@mui/material";
 import FaceIcon from "@mui/icons-material/Face";
 import AddCommentIcon from "@mui/icons-material/AddComment";
 
-export default function PostItem({ post }: { post: IPosts }) {
-  const { id, title, body } = post;
+export default function PostItem({ post }: { post: IPost }) {
+  const { _id, title, body } = post;
 
   const cutLongText = (text: string) => {
     if (text.length > 200) {
@@ -14,11 +14,11 @@ export default function PostItem({ post }: { post: IPosts }) {
     }
   };
 
-  const postUrl = "posts/" + id;
-  const userUrl = "posts/author/" + id;
+  const postUrl = "posts/" + _id;
+  const userUrl = "posts/author/" + _id;
 
   return (
-    <Card id={id} sx={{ position: "relative", height: 280 }}>
+    <Card id={_id} sx={{ position: "relative", height: 280 }}>
       <CardContent>
         <Link
           href={userUrl}
