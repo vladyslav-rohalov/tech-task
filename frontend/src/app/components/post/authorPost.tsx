@@ -1,33 +1,41 @@
 import { Card, CardContent, Divider } from "@mui/material";
-import { IPost, IComment } from "@/app/utils/interfaces";
+import { IPost, IComment, IUser } from "@/app/utils/interfaces";
 import ComponentPost from "./post/componentPost";
 import ComponentComment from "./comment/componentComment";
 
 interface PropsTypes {
   post: IPost;
-  comments: IComment[];
-  handleSendComment: (comment: IComment) => void;
+  user: IUser;
+  handleSendComment: ({
+    comment,
+    parentPost,
+  }: {
+    comment: IComment;
+    parentPost: string | undefined;
+  }) => void;
 }
 
 export default function AuthorPost({
   post,
-  comments,
+  user,
   handleSendComment,
 }: PropsTypes) {
-  const { title, body } = post;
-
   return (
-    <Card sx={{ height: 500, my: 4 }}>
-      <CardContent
-        sx={{ display: "flex", flexDirection: "row", height: "100%" }}
-      >
-        <ComponentPost title={title} body={body} />
-        <Divider orientation="vertical" flexItem />
-        <ComponentComment
-          comments={comments}
-          handleSendComment={handleSendComment}
-        />
-      </CardContent>
-    </Card>
+    <>
+      {post && (
+        <Card sx={{ height: 500, my: 4 }}>
+          <CardContent
+            sx={{ display: "flex", flexDirection: "row", height: "100%" }}
+          >
+            <ComponentPost post={post} user={user} />
+            <Divider orientation="vertical" flexItem />
+            <ComponentComment
+              handleSendComment={handleSendComment}
+              post={post}
+            />
+          </CardContent>
+        </Card>
+      )}
+    </>
   );
 }

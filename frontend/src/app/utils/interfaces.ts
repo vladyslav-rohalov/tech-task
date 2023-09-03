@@ -8,7 +8,10 @@ export interface IFormData {
 export interface IComment {
   comment: string;
   parentPost?: string;
-  owner?: string;
+  owner?: {
+    _id: string;
+    name: string;
+  };
   _id?: string;
   createdAt?: string;
   updatedAt?: string;
@@ -38,7 +41,7 @@ export interface IUser {
   name: string;
   email: string;
   role: string;
-  id: string;
+  _id: string;
 }
 
 export interface IAuthState {

@@ -46,6 +46,7 @@ const getPostById = async (req, res) => {
 const editPost = async (req, res) => {
   const { _id: owner } = req.user;
   const { id } = req.params;
+  const { title, body } = req.body;
   const post = await Post.findById(id);
 
   if (String(post.owner._id) !== String(owner)) {

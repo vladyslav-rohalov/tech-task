@@ -16,30 +16,6 @@ export const fetchPosts = createAsyncThunk(
   }
 );
 
-// export const fetchAllUserPosts = createAsyncThunk(
-//   "posts/getAllUserPosts",
-//   async (id, thunkAPI) => {
-//     try {
-//       const response = await axios.get(`api/posts/user/${id}`);
-//       return response.data;
-//     } catch (e: any) {
-//       return thunkAPI.rejectWithValue(e.message);
-//     }
-//   }
-// );
-
-// export const fetchPostById = createAsyncThunk(
-//   "posts/getOne",
-//   async (id, thunkAPI) => {
-//     try {
-//       const response = await axios.get(`/api/posts${id}`);
-//       return response.data;
-//     } catch (e: any) {
-//       return thunkAPI.rejectWithValue(e.message);
-//     }
-//   }
-// );
-
 export const addPost = createAsyncThunk(
   "posts/add",
   async (post: IPost, thunkAPI) => {
@@ -78,21 +54,18 @@ export const deletePost = createAsyncThunk(
 
 export const addComment = createAsyncThunk(
   "comment/add",
-  async (comment: IComment, thunkAPI) => {
+  async (
+    {
+      comment,
+      parentPost,
+    }: { comment: IComment; parentPost: string | undefined },
+    thunkAPI
+  ) => {
     try {
-      const response = await axios.post("/api/comment", comment);
-      return response.data;
-    } catch (e: any) {
-      return thunkAPI.rejectWithValue(e.message);
-    }
-  }
-);
-
-export const editComment = createAsyncThunk(
-  "comment/edit",
-  async ({ id, comment }: { id: string; comment: IComment }, thunkAPI) => {
-    try {
-      const response = await axios.patch(`/api/comment/${id}`, comment);
+      const response = await axios.post("/api/comment", {
+        comment,
+        parentPost,
+      });
       return response.data;
     } catch (e: any) {
       return thunkAPI.rejectWithValue(e.message);

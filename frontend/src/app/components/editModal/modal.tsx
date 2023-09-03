@@ -19,8 +19,7 @@ export default function EditPostModal({ open, handleClose, post }: PropTypes) {
   const dispatch = useDispatch<AppDispatch>();
 
   const handleEditPost = ({ title, body }: IPost) => {
-    const modPost = { ...post, title, body } as IPost;
-    dispatch(editPost({ id: post._id, post: modPost }));
+    dispatch(editPost({ id: post._id, post: { title, body } }));
   };
 
   return (

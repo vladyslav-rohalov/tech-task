@@ -12,11 +12,6 @@ const commentSchema = new Schema(
       ref: 'post',
       required: [true, 'Post is required'],
     },
-    // owner: {
-    //   type: Schema.Types.ObjectId,
-    //   ref: 'user',
-    //   required: [true, 'Owner is required'],
-    // },
     owner: {
       _id: {
         type: Schema.Types.ObjectId,

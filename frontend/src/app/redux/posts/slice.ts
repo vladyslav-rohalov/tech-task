@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import { RootState } from "../store";
 import { IPostsState, IComment, IPost } from "@/app/utils/interfaces";
 import {
   fetchPosts,
@@ -7,7 +6,6 @@ import {
   editPost,
   deletePost,
   addComment,
-  editComment,
   deleteComment,
 } from "./operations";
 
@@ -75,32 +73,13 @@ const postsSlice = createSlice({
       .addCase(addComment.pending, pendingReducer)
       .addCase(addComment.rejected, failureReducer)
       .addCase(addComment.fulfilled, (state, action) => {
-        const newComment = action.payload as IComment;
-        const post = state.items.find((n) => n._id === newComment.parentPost);
-        if (post) {
-          if (!post.comments) {
-            post.comments = [];
-          }
-          post.comments.push(newComment);
-        }
-      })
-
-      .addCase(editComment.pending, pendingReducer)
-      .addCase(editComment.rejected, failureReducer)
-      .addCase(editComment.fulfilled, (state, action) => {
-        const newComment = action.payload as IComment;
-        const post = state.items.find((n) => n._id === newComment.parentPost);
-        if (post) {
-          if (!post.comments) {
-            post.comments = [];
-          }
-          const index = post.comments.findIndex(
-            (comment) => comment._id === action.payload._id
-          );
-          if (index !== -1) {
-            post.comments[index] = action.payload;
-          }
-        }
+        const updatedPost = action.payload as IPost;
+        const index = state.items.findIndex(
+          (post) => post._id === updatedPost._id
+        );
+        state.items[index] = updatedPost;
+        state.isLoading = false;
+        state.isError = null;
       })
 
       .addCase(deleteComment.pending, pendingReducer)
