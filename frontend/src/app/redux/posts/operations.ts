@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { IPost, IComment } from "@/app/utils/interfaces";
 
-axios.defaults.baseURL = "http://localhost:3001/";
+axios.defaults.baseURL = "https://teck-task-bakend.onrender.com/";
 
 export const fetchPosts = createAsyncThunk(
   "posts/getAll",

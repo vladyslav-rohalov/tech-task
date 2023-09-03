@@ -3,7 +3,6 @@ import Image from "next/image";
 import { Box, Container, Typography } from "@mui/material";
 
 export default function Home() {
- 
   return (
     <Container
       component="section"
@@ -19,7 +18,7 @@ export default function Home() {
         </Typography>
 
         <Typography component="h2" variant="h5" sx={{ mb: 2 }}>
-          To go further log in to the site{" "}
+          To go further log in to the site
           <Link
             href="/authorization"
             style={{ color: "#586ba4", textDecoration: "underline" }}
@@ -27,7 +26,15 @@ export default function Home() {
             Log In
           </Link>
         </Typography>
-
+        <Typography component="h2" variant="h5" sx={{ mb: 2 }}>
+          After login you can see Posts
+          <Link
+            href="/posts"
+            style={{ color: "#586ba4", textDecoration: "underline" }}
+          >
+            Posts
+          </Link>
+        </Typography>
         <Image
           style={{
             position: "absolute",

@@ -3,7 +3,7 @@ import axios from "axios";
 import { IFormData } from "@/app/utils/interfaces";
 import { RootState } from "@/app/utils/interfaces";
 
-axios.defaults.baseURL = "http://localhost:3001/";
+axios.defaults.baseURL = "https://teck-task-bakend.onrender.com/";
 
 const token = {
   set(token: string) {
