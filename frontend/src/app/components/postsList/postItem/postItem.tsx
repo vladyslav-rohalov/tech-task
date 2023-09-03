@@ -6,21 +6,17 @@ import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/app/redux/store";
 import { deletePost } from "@/app/redux/posts/operations";
-import { Box, Divider, IconButton, Popover } from "@mui/material";
-import { Card, CardContent, Typography, ListItemText } from "@mui/material";
-import { List, ListItem, ListItemIcon, ListItemButton } from "@mui/material";
+import { Card, CardContent, Typography, Box, Divider } from "@mui/material";
 import { useAuth } from "@/app/hooks/useAuth";
-import FaceIcon from "@mui/icons-material/Face";
 import AddCommentIcon from "@mui/icons-material/AddComment";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import AutoStoriesIcon from "@mui/icons-material/AutoStories";
+import UserInfo from "./userInfo/userInfo";
+import EditPostModal from "../../editModal/modal";
 
 export default function PostItem({ post }: { post: IPost }) {
   const [anchorEl, setAnchorEl] = useState<
     (EventTarget & HTMLButtonElement) | null
   >(null);
+  const [openModal, setOpenModal] = useState(false);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -47,6 +43,14 @@ export default function PostItem({ post }: { post: IPost }) {
     }
   };
 
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
+
+  const handleOpenModal = () => {
+    setOpenModal(true);
+  };
+
   const postUrl = "posts/" + _id;
   const userUrl = "posts/author/" + owner?._id;
 
@@ -56,90 +60,19 @@ export default function PostItem({ post }: { post: IPost }) {
   return (
     <Card id={_id} sx={{ position: "relative", height: 280 }}>
       <CardContent>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
-          <Link
-            href={userUrl}
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-            }}
-          >
-            <FaceIcon sx={{ mr: 1, color: "primary.main" }} />
-            <Typography sx={{ color: "primary.main" }}>
-              {owner?.name}
-            </Typography>
-          </Link>
-
-          <IconButton onClick={handleClick} sx={{ color: "primary.light" }}>
-            <MoreVertIcon />
-          </IconButton>
-
-          <Popover
-            id={id}
-            open={open}
-            anchorEl={anchorEl}
-            onClose={() => setAnchorEl(null)}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "left",
-            }}
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "left",
-            }}
-          >
-            <List>
-              {isPostOwner() ? (
-                <>
-                  <ListItem disablePadding>
-                    <Link href={postUrl}>
-                      <ListItemButton>
-                        <ListItemIcon>
-                          <AutoStoriesIcon sx={{ color: "primary.light" }} />
-                        </ListItemIcon>
-                        <ListItemText primary="read more" />
-                      </ListItemButton>
-                    </Link>
-                  </ListItem>
-                  <ListItem disablePadding>
-                    <ListItemButton>
-                      <ListItemIcon>
-                        <EditIcon sx={{ color: "primary.info" }} />
-                      </ListItemIcon>
-                      <ListItemText primary="edit" />
-                    </ListItemButton>
-                  </ListItem>
-                  <ListItem disablePadding>
-                    <ListItemButton onClick={handleDelete}>
-                      <ListItemIcon>
-                        <DeleteIcon sx={{ color: "primary.hot" }} />
-                      </ListItemIcon>
-                      <ListItemText primary="delete" />
-                    </ListItemButton>
-                  </ListItem>
-                </>
-              ) : (
-                <ListItem disablePadding>
-                  <Link href={postUrl}>
-                    <ListItemButton>
-                      <ListItemIcon>
-                        <AutoStoriesIcon sx={{ color: "primary.light" }} />
-                      </ListItemIcon>
-                      <ListItemText primary="read more" />
-                    </ListItemButton>
-                  </Link>
-                </ListItem>
-              )}
-            </List>
-          </Popover>
-        </Box>
+        <UserInfo
+          userUrl={userUrl}
+          popoverId={id}
+          name={owner?.name}
+          anchorEl={anchorEl}
+          handleClick={handleClick}
+          handleDelete={handleDelete}
+          isPostOwner={isPostOwner()}
+          open={open}
+          postUrl={postUrl}
+          setAnchorEl={setAnchorEl}
+          handleOpenModal={handleOpenModal}
+        />
 
         <Divider sx={{ mt: 1 }} />
         <Box>
@@ -186,6 +119,7 @@ export default function PostItem({ post }: { post: IPost }) {
           </Box>
         )}
       </CardContent>
+      <EditPostModal open={openModal} handleClose={handleCloseModal} post={post}/>
     </Card>
   );
 }
