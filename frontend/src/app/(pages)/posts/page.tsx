@@ -1,6 +1,5 @@
 "use client";
 
-import authGuard from "@/app/utils/authGuard";
 import { useAuth } from "@/app/hooks/useAuth";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -12,14 +11,15 @@ import PostsList from "@/app/components/postsList/posts";
 import CreatePost from "@/app/components/createPost/createPost";
 import { IPost } from "@/app/utils/interfaces";
 import Spinner from "@/app/components/spiner/spiner";
+import { redirect } from "next/navigation";
 
 export default function Posts() {
-  authGuard();
+  const { user, isLoading } = useAuth();
+  if (isLoading) redirect("/authorization");
 
   const dispatch = useDispatch<AppDispatch>();
 
-  const { posts, isLoading } = usePosts();
-  const { user } = useAuth();
+  const { posts, isLoadingPosts } = usePosts();
 
   useEffect(() => {
     dispatch(fetchPosts());
@@ -38,7 +38,7 @@ export default function Posts() {
         mt: 12,
       }}
     >
-      {isLoading ? (
+      {isLoadingPosts ? (
         <Spinner />
       ) : (
         <>

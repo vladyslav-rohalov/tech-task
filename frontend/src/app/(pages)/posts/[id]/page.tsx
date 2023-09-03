@@ -1,6 +1,5 @@
 "use client";
 
-import authGuard from "@/app/utils/authGuard";
 import { useParams } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/app/redux/store";
@@ -10,14 +9,15 @@ import AuthorPost from "@/app/components/post/authorPost";
 import { usePosts } from "@/app/hooks/usePosts";
 import { useAuth } from "@/app/hooks/useAuth";
 import { IPost, IComment } from "@/app/utils/interfaces";
+import { redirect } from "next/navigation";
 
 export default function Post() {
-  authGuard();
+  const { user, isLoading } = useAuth();
+  if (isLoading) redirect("/authorization");
 
   const dispatch = useDispatch<AppDispatch>();
 
   const { posts } = usePosts();
-  const { user } = useAuth();
   const { id } = useParams();
 
   const authorPost = posts.find((post: IPost) => post._id === id);

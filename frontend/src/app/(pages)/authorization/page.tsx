@@ -1,5 +1,5 @@
 "use client";
-import authGuard from "@/app/utils/authGuard";
+
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/app/redux/store";
@@ -12,8 +12,6 @@ import { IFormData } from "@/app/utils/interfaces";
 import Spinner from "@/app/components/spiner/spiner";
 
 export default function Authorization() {
-  authGuard();
-
   const [login, setLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
 

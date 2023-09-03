@@ -1,15 +1,15 @@
 "use client";
 
-import authGuard from "@/app/utils/authGuard";
-import { useParams, usePathname } from "next/navigation";
+import { useParams, redirect } from "next/navigation";
 import { Container, Typography } from "@mui/material";
 import PostsList from "@/app/components/postsList/posts";
 import { usePosts } from "@/app/hooks/usePosts";
 import { IPost } from "@/app/utils/interfaces";
+import { useAuth } from "@/app/hooks/useAuth";
 
 export default function AuthorFeed() {
-  const path = usePathname();
-  authGuard();
+  const { isLoading } = useAuth();
+  if (isLoading) redirect("/authorization");
 
   const { posts } = usePosts();
   const { id } = useParams();
