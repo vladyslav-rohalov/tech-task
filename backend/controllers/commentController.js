@@ -4,9 +4,13 @@ const { HttpError } = require('../helpers');
 const { controllerWrapper } = require('../decorators');
 
 const createComment = async (req, res) => {
-  const { _id: owner } = req.user;
+  // const { _id: owner } = req.user;
+  const { _id, name, role } = req.user;
+  if (role !== 'Commentator') {
+    throw HttpError(403, 'Only the Commentator can add a comments');
+  }
   const { parentPost } = req.body;
-  const comment = await Comment.create({ ...req.body, owner });
+  const comment = await Comment.create({ ...req.body, owner: { _id, name } });
   const result = await Post.findByIdAndUpdate(
     parentPost,
     { $push: { comments: { ...comment } } },

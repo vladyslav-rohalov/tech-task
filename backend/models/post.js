@@ -15,13 +15,24 @@ const postSchema = new Schema(
       type: Schema.Types.Array,
       default: [],
     },
+    // owner: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: 'user',
+    //   required: [true, 'Owner is required'],
+    // },
     owner: {
-      type: Schema.Types.ObjectId,
-      ref: 'user',
-      required: [true, 'Owner is required'],
+      _id: {
+        type: Schema.Types.ObjectId,
+        ref: 'user',
+        required: [true, 'Owner is required'],
+      },
+      name: {
+        type: String,
+        required: [true, 'User name is required'],
+      },
     },
   },
-  { versionKey: false,timestamps: true }
+  { versionKey: false, timestamps: true }
 );
 
 postSchema.post('save', handleMongooseError);

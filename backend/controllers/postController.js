@@ -4,12 +4,12 @@ const { HttpError } = require('../helpers');
 const { controllerWrapper } = require('../decorators');
 
 const addPost = async (req, res) => {
-  const { _id: owner } = req.user;
+  const { _id, name, role } = req.user;
 
-  if (req.user.role !== 'Author') {
+  if (role !== 'Author') {
     throw HttpError(403, 'Only the Author can add a post');
   }
-  const result = await Post.create({ ...req.body, owner });
+  const result = await Post.create({ ...req.body, owner: { _id, name } });
 
   res.status(201).json(result);
 };
@@ -57,11 +57,19 @@ const editPost = async (req, res) => {
 };
 
 const deletePost = async (req, res) => {
+  const { _id: owner } = req.user;
   const { id } = req.params;
-  const result = await Post.findByIdAndRemove(id);
-  if (!result) {
+
+  const post = await Post.findById(id);
+  if (!post) {
     throw HttpError(404, 'Not found');
   }
+  if (String(post.owner) !== String(owner)) {
+    throw HttpError(403, 'No edit permission');
+  }
+
+  await Post.findByIdAndRemove(id);
+
   res.json({ message: 'Delete success' });
 };
 

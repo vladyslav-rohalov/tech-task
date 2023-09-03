@@ -6,8 +6,8 @@ import FaceIcon from "@mui/icons-material/Face";
 import AddCommentIcon from "@mui/icons-material/AddComment";
 
 export default function PostItem({ post }: { post: IPost }) {
-  const { _id, title, body } = post;
-
+  const { _id, title, body, owner } = post;
+  console.log(post);
   const cutLongText = (text: string) => {
     if (text.length > 200) {
       return text.slice(0, 199);
@@ -29,7 +29,7 @@ export default function PostItem({ post }: { post: IPost }) {
           }}
         >
           <FaceIcon sx={{ mr: 1, color: "primary.main" }} />
-          <Typography sx={{ color: "primary.main" }}>Author</Typography>
+          <Typography sx={{ color: "primary.main" }}>{owner?.name}</Typography>
         </Link>
 
         <Divider sx={{ mt: 1 }} />

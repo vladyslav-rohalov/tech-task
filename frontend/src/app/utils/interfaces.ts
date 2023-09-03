@@ -19,7 +19,11 @@ export interface IPost {
   title: string;
   body: string;
   comments?: IComment[];
-  owner?: string;
+  // owner?: string;
+  owner?: {
+    _id: string;
+    name: string;
+  };
   createdAt?: string;
   updatedAt?: string;
 }

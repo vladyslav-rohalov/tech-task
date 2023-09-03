@@ -12,10 +12,21 @@ const commentSchema = new Schema(
       ref: 'post',
       required: [true, 'Post is required'],
     },
+    // owner: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: 'user',
+    //   required: [true, 'Owner is required'],
+    // },
     owner: {
-      type: Schema.Types.ObjectId,
-      ref: 'user',
-      required: [true, 'Owner is required'],
+      _id: {
+        type: Schema.Types.ObjectId,
+        ref: 'user',
+        required: [true, 'Owner is required'],
+      },
+      name: {
+        type: String,
+        required: [true, 'User name is required'],
+      },
     },
   },
   { versionKey: false, timestamps: true }
