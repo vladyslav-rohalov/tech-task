@@ -24,6 +24,7 @@ const register = async (req, res) => {
       name: newUser.name,
       email: newUser.email,
       role: newUser.role,
+      _id: newUser._id,
     },
   });
 };
@@ -31,6 +32,7 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
+
   if (!user) {
     throw HttpError(401, 'Email or password is wrong');
   }
@@ -42,6 +44,7 @@ const login = async (req, res) => {
     id: user._id,
   };
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '24h' });
+
   await User.findByIdAndUpdate(user._id, { token });
 
   res.status(200).json({
@@ -50,18 +53,20 @@ const login = async (req, res) => {
       name: user.name,
       email: user.email,
       role: user.role,
+      _id: user._id,
     },
   });
 };
 
 const getCurrent = async (req, res) => {
-  const { name, email, role } = req.user;
+  const { name, email, role, _id } = req.user;
 
   res.status(200).json({
     user: {
       name,
       email,
       role,
+      _id,
     },
   });
 };

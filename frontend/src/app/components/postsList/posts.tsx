@@ -8,6 +8,7 @@ interface PropsTypes {
 }
 
 export default function PostsList({ posts }: PropsTypes) {
+  console.log(posts)
   return (
     <Box sx={{ width: "100%" }}>
       <Grid

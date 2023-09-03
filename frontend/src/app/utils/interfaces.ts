@@ -38,6 +38,7 @@ export interface IUser {
   name: string;
   email: string;
   role: string;
+  id: string;
 }
 
 export interface IAuthState {

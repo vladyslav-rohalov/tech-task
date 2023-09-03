@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { IFormData } from "@/app/utils/interfaces";
-import { RootState } from "../store";
+import { RootState } from "@/app/utils/interfaces";
 
 axios.defaults.baseURL = "http://localhost:3001/";
 
@@ -53,8 +53,7 @@ export const logOut = createAsyncThunk("users/logout", async (_, thunkAPI) => {
 export const refreshUser = createAsyncThunk(
   "auth/refresh",
   async (_, thunkAPI) => {
-    const state: RootState = thunkAPI.getState();
-    // const state = thunkAPI.getState();
+    const state: RootState = thunkAPI.getState() as RootState;
     const persistedToken = state.auth.token;
 
     if (persistedToken === null) {

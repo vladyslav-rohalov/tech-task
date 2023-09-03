@@ -1,11 +1,11 @@
 import { Card, CardContent, Divider } from "@mui/material";
-import { IPosts, IComments, IComment } from "@/app/utils/interfaces";
+import { IPost, IComment } from "@/app/utils/interfaces";
 import ComponentPost from "./post/componentPost";
 import ComponentComment from "./comment/componentComment";
 
 interface PropsTypes {
-  post: IPosts;
-  comments: IComments[];
+  post: IPost;
+  comments: IComment[];
   handleSendComment: (comment: IComment) => void;
 }
 

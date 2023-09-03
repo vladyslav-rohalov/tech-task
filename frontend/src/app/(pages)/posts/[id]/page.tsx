@@ -4,19 +4,22 @@ import authGuard from "@/app/utils/authGuard";
 import { useParams, usePathname } from "next/navigation";
 import { Container } from "@mui/material";
 import AuthorPost from "@/app/components/post/authorPost";
-import { posts } from "@/app/utils/tmpData";
+import { usePosts } from "@/app/hooks/usePosts";
 import { comments } from "@/app/utils/tmpData";
 import Breadcrumbs from "@/app/layout/breacrumbs/breadcrumbs";
+import { IPost, IComment } from "@/app/utils/interfaces";
 
 export default function Post() {
   authGuard();
-
+  const { posts } = usePosts();
   const { id } = useParams();
+
+  const authorPost = posts.find((post: IPost) => post._id === id);
+
   const path = usePathname().split("/");
   path.splice(0, 1);
-  const post = posts.find((n) => n.id === id);
 
-  const handleSendComment = (comment) => {
+  const handleSendComment = (comment: IComment) => {
     console.log(comment);
   };
 
@@ -31,7 +34,7 @@ export default function Post() {
     >
       <Breadcrumbs crumbs={path} />
       <AuthorPost
-        post={post}
+        post={authorPost}
         comments={comments}
         handleSendComment={handleSendComment}
       />

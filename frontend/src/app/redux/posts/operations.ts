@@ -54,7 +54,7 @@ export const addPost = createAsyncThunk(
 
 export const editPost = createAsyncThunk(
   "posts/edit",
-  async ({ id, post }: { id: number; post: IPost }, thunkAPI) => {
+  async ({ id, post }: { id: string; post: IPost }, thunkAPI) => {
     try {
       const response = await axios.patch(`/api/posts/${id}`, post);
       return response.data;
@@ -66,7 +66,7 @@ export const editPost = createAsyncThunk(
 
 export const deletePost = createAsyncThunk(
   "posts/delete",
-  async (id, thunkAPI) => {
+  async (id: string, thunkAPI) => {
     try {
       const response = await axios.delete(`/api/posts/${id}`);
       return response.data;

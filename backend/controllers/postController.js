@@ -1,5 +1,5 @@
 const Post = require('../models/post');
-const User = require('../models/user');
+// const User = require('../models/user');
 const { HttpError } = require('../helpers');
 const { controllerWrapper } = require('../decorators');
 
@@ -48,7 +48,7 @@ const editPost = async (req, res) => {
   const { id } = req.params;
   const post = await Post.findById(id);
 
-  if (String(post.owner) !== String(owner)) {
+  if (String(post.owner._id) !== String(owner)) {
     throw HttpError(403, 'No edit permission');
   }
   const result = await Post.findByIdAndUpdate(id, req.body, { new: true });
@@ -64,7 +64,8 @@ const deletePost = async (req, res) => {
   if (!post) {
     throw HttpError(404, 'Not found');
   }
-  if (String(post.owner) !== String(owner)) {
+
+  if (String(post.owner._id) !== String(owner)) {
     throw HttpError(403, 'No edit permission');
   }
 
