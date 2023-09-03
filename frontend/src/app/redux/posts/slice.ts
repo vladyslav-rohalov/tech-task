@@ -59,6 +59,8 @@ const postsSlice = createSlice({
           (post) => post._id === action.payload._id
         );
         state.items[index] = action.payload;
+        state.isLoading = false;
+        state.isError = null;
       })
 
       .addCase(deletePost.pending, pendingReducer)
@@ -68,6 +70,8 @@ const postsSlice = createSlice({
           (post) => post._id === action.payload
         );
         state.items.splice(index, 1);
+        state.isLoading = false;
+        state.isError = null;
       })
 
       .addCase(addComment.pending, pendingReducer)
@@ -98,6 +102,8 @@ const postsSlice = createSlice({
             post.comments.splice(index, 1);
           }
         }
+        state.isLoading = false;
+        state.isError = null;
       });
   },
 });

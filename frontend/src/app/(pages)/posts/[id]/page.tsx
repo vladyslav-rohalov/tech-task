@@ -1,7 +1,7 @@
 "use client";
 
 import authGuard from "@/app/utils/authGuard";
-import { useParams, usePathname } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/app/redux/store";
 import { addComment } from "@/app/redux/posts/operations";
@@ -9,7 +9,6 @@ import { Container } from "@mui/material";
 import AuthorPost from "@/app/components/post/authorPost";
 import { usePosts } from "@/app/hooks/usePosts";
 import { useAuth } from "@/app/hooks/useAuth";
-import Breadcrumbs from "@/app/layout/breacrumbs/breadcrumbs";
 import { IPost, IComment } from "@/app/utils/interfaces";
 
 export default function Post() {
@@ -22,9 +21,6 @@ export default function Post() {
   const { id } = useParams();
 
   const authorPost = posts.find((post: IPost) => post._id === id);
-
-  const path = usePathname().split("/");
-  path.splice(0, 1);
 
   const handleSendComment = ({
     comment,
@@ -50,8 +46,11 @@ export default function Post() {
         mt: 12,
       }}
     >
-      <Breadcrumbs crumbs={path} />
-      <AuthorPost post={authorPost} handleSendComment={handleSendComment} user={user}/>
+      <AuthorPost
+        post={authorPost}
+        handleSendComment={handleSendComment}
+        user={user}
+      />
     </Container>
   );
 }

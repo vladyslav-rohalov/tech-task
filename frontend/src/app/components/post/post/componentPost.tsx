@@ -49,7 +49,6 @@ export default function ComponentPost({ post, user }: PropTypes) {
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
-          mb: 2,
         }}
       >
         <Box
@@ -65,7 +64,7 @@ export default function ComponentPost({ post, user }: PropTypes) {
         {isPostOwner() && (
           <Box sx={{ mr: 2 }}>
             <IconButton onClick={handleDelete}>
-              <DeleteIcon sx={{ color: "primary.hot", mr: 2 }} />
+              <DeleteIcon sx={{ color: "primary.hot" }} />
             </IconButton>
             <IconButton onClick={() => setOpenModal(true)}>
               <EditIcon sx={{ color: "primary.info" }} />
