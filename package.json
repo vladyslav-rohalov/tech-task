@@ -5,7 +5,7 @@
     "start": "concurrently \"npm run frontend\" \"npm run backend\"",
     "frontend": "cd frontend && npm run build",
     "backend": "cd backend && npm start",
-    "install-deps": "cd frontend && npm install && cd ../backend && npm install"
+    "install-deps": "npm install && cd frontend && npm install && cd ../backend && npm install"
   },
   "devDependencies": {
     "concurrently": "^8.2.1"
