@@ -25,7 +25,7 @@ export const register = createAsyncThunk(
     try {
       const response = await axios.post("/users/register", userData);
       token.set(response.data.token);
-      Notiflix.Notify.success("User register success");
+
       return response.data;
     } catch (e: any) {
       Notiflix.Notify.failure(e.response.data.message);
@@ -40,7 +40,7 @@ export const logIn = createAsyncThunk(
     try {
       const response = await axios.post("/users/login", userData);
       token.set(response.data.token);
-      Notiflix.Notify.success("User login success");
+
       return response.data;
     } catch (e: any) {
       Notiflix.Notify.failure(e.response.data.message);
@@ -53,7 +53,6 @@ export const logOut = createAsyncThunk("users/logout", async (_, thunkAPI) => {
   try {
     await axios.post("/users/logout");
     token.set("");
-    Notiflix.Notify.success("User logout success");
   } catch (e: any) {
     Notiflix.Notify.failure(e.response.data.message);
     return thunkAPI.rejectWithValue(e.message);
