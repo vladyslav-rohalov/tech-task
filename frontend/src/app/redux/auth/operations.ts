@@ -2,6 +2,11 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { IFormData } from "@/app/utils/interfaces";
 import { RootState } from "@/app/utils/interfaces";
+import Notiflix from "notiflix";
+
+Notiflix.Notify.init({
+  position: "center-center",
+});
 
 axios.defaults.baseURL = "https://teck-task-bakend.onrender.com/";
 
@@ -20,8 +25,10 @@ export const register = createAsyncThunk(
     try {
       const response = await axios.post("/users/register", userData);
       token.set(response.data.token);
+      Notiflix.Notify.success("User register success");
       return response.data;
     } catch (e: any) {
+      Notiflix.Notify.failure(e.response.data.message);
       return thunkAPI.rejectWithValue(e.message);
     }
   }
@@ -33,9 +40,10 @@ export const logIn = createAsyncThunk(
     try {
       const response = await axios.post("/users/login", userData);
       token.set(response.data.token);
-
+      Notiflix.Notify.success("User login success");
       return response.data;
     } catch (e: any) {
+      Notiflix.Notify.failure(e.response.data.message);
       return thunkAPI.rejectWithValue(e.message);
     }
   }
@@ -45,7 +53,9 @@ export const logOut = createAsyncThunk("users/logout", async (_, thunkAPI) => {
   try {
     await axios.post("/users/logout");
     token.set("");
+    Notiflix.Notify.success("User logout success");
   } catch (e: any) {
+    Notiflix.Notify.failure(e.response.data.message);
     return thunkAPI.rejectWithValue(e.message);
   }
 });
@@ -65,6 +75,7 @@ export const refreshUser = createAsyncThunk(
       const response = await axios.get("/users/current");
       return response.data;
     } catch (e: any) {
+      Notiflix.Notify.failure(e.response.data.message);
       return thunkAPI.rejectWithValue(e.message);
     }
   }
