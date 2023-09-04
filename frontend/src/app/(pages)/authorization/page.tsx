@@ -9,7 +9,6 @@ import { useAuth } from "@/app/hooks/useAuth";
 import { Container } from "@mui/material";
 import Auth from "@/app/components/auth/auth";
 import { IFormData } from "@/app/utils/interfaces";
-import Spinner from "@/app/components/spiner/spiner";
 
 export default function Authorization() {
   const [login, setLogin] = useState(true);
@@ -17,6 +16,8 @@ export default function Authorization() {
 
   const dispatch = useDispatch<AppDispatch>();
   const { isLogin } = useAuth();
+
+  // router.back();
   if (isLogin) redirect("/posts");
 
   const handleShowPassword = () => setShowPassword(!showPassword);

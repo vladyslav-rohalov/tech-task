@@ -8,6 +8,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import FaceIcon from "@mui/icons-material/Face";
+import { useRouter, usePathname } from "next/navigation";
 
 interface PropTypes {
   userUrl: string;
@@ -36,6 +37,15 @@ export default function UserInfo({
   handleDelete,
   handleOpenModal,
 }: PropTypes) {
+  const path = usePathname();
+  const router = useRouter();
+  const pathArr = path.split("/");
+  console.log(router);
+  const handleRoute = () => {
+    if (pathArr.includes("author")) return;
+    router.push(userUrl);
+  };
+
   return (
     <Box
       sx={{
@@ -44,17 +54,15 @@ export default function UserInfo({
         justifyContent: "space-between",
       }}
     >
-      <Link
-        href={userUrl}
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-        }}
+      <Box
+        sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}
+        onClick={handleRoute}
       >
-        <FaceIcon sx={{ mr: 1, color: "primary.main" }} />
+        <IconButton>
+          <FaceIcon sx={{ mr: 1, color: "primary.main" }} />
+        </IconButton>
         <Typography sx={{ color: "primary.main" }}>{name}</Typography>
-      </Link>
+      </Box>
 
       <IconButton onClick={handleClick} sx={{ color: "primary.light" }}>
         <MoreVertIcon />
