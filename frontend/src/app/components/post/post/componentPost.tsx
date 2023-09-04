@@ -56,6 +56,7 @@ export default function ComponentPost({ post, user }: PropTypes) {
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
+            mb: 2,
           }}
         >
           <FaceIcon sx={{ mr: 1, color: "primary.main" }} />

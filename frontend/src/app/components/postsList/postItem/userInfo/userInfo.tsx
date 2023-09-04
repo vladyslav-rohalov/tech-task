@@ -1,7 +1,7 @@
 import Link from "next/link";
 // import {relocate} from 'next/navigation'
 import { Typography, IconButton, Popover, ListItemText } from "@mui/material";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { List, ListItem, ListItemIcon, ListItemButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -40,10 +40,18 @@ export default function UserInfo({
   const path = usePathname();
   const router = useRouter();
   const pathArr = path.split("/");
-  console.log(router);
+
   const handleRoute = () => {
     if (pathArr.includes("author")) return;
     router.push(userUrl);
+  };
+
+  const handleMenuClick = () => {
+    if (pathArr.includes("author")) {
+      router.replace(`/${postUrl}`);
+      return;
+    }
+    router.push(postUrl);
   };
 
   return (
@@ -54,15 +62,12 @@ export default function UserInfo({
         justifyContent: "space-between",
       }}
     >
-      <Box
-        sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}
+      <Button
+        startIcon={<FaceIcon sx={{ color: "primary.main" }} />}
         onClick={handleRoute}
       >
-        <IconButton>
-          <FaceIcon sx={{ mr: 1, color: "primary.main" }} />
-        </IconButton>
-        <Typography sx={{ color: "primary.main" }}>{name}</Typography>
-      </Box>
+        {name}
+      </Button>
 
       <IconButton onClick={handleClick} sx={{ color: "primary.light" }}>
         <MoreVertIcon />
@@ -85,15 +90,15 @@ export default function UserInfo({
         <List>
           {isPostOwner ? (
             <>
-              <ListItem disablePadding>
-                <Link href={postUrl}>
-                  <ListItemButton>
-                    <ListItemIcon>
-                      <AutoStoriesIcon sx={{ color: "primary.light" }} />
-                    </ListItemIcon>
-                    <ListItemText primary="read more" />
-                  </ListItemButton>
-                </Link>
+              <ListItem disablePadding onClick={handleMenuClick}>
+                {/* <Link href={postUrl}> */}
+                <ListItemButton>
+                  <ListItemIcon>
+                    <AutoStoriesIcon sx={{ color: "primary.light" }} />
+                  </ListItemIcon>
+                  <ListItemText primary="read more" />
+                </ListItemButton>
+                {/* </Link> */}
               </ListItem>
               <ListItem disablePadding>
                 <ListItemButton onClick={handleOpenModal}>
@@ -113,15 +118,15 @@ export default function UserInfo({
               </ListItem>
             </>
           ) : (
-            <ListItem disablePadding>
-              <Link href={postUrl}>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <AutoStoriesIcon sx={{ color: "primary.light" }} />
-                  </ListItemIcon>
-                  <ListItemText primary="read more" />
-                </ListItemButton>
-              </Link>
+            <ListItem disablePadding onClick={handleMenuClick}>
+              {/* <Link href={postUrl}> */}
+              <ListItemButton>
+                <ListItemIcon>
+                  <AutoStoriesIcon sx={{ color: "primary.light" }} />
+                </ListItemIcon>
+                <ListItemText primary="read more" />
+              </ListItemButton>
+              {/* </Link> */}
             </ListItem>
           )}
         </List>
