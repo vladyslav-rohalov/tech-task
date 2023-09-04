@@ -8,8 +8,8 @@ import { IPost } from "@/app/utils/interfaces";
 import { useAuth } from "@/app/hooks/useAuth";
 
 export default function AuthorFeed() {
-  const { isLoading } = useAuth();
-  if (isLoading) redirect("/authorization");
+  const { isLogin } = useAuth();
+  if (!isLogin) redirect("/authorization");
 
   const { posts } = usePosts();
   const { id } = useParams();

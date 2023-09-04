@@ -14,8 +14,8 @@ import Spinner from "@/app/components/spiner/spiner";
 import { redirect } from "next/navigation";
 
 export default function Posts() {
-  const { user, isLoading } = useAuth();
-  if (isLoading) redirect("/authorization");
+  const { user, isLogin } = useAuth();
+  if (!isLogin) redirect("/authorization");
 
   const dispatch = useDispatch<AppDispatch>();
 

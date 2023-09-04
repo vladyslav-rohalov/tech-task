@@ -12,8 +12,8 @@ import { IPost, IComment } from "@/app/utils/interfaces";
 import { redirect } from "next/navigation";
 
 export default function Post() {
-  const { user, isLoading } = useAuth();
-  if (isLoading) redirect("/authorization");
+  const { user, isLogin } = useAuth();
+  if (!isLogin) redirect("/authorization");
 
   const dispatch = useDispatch<AppDispatch>();
 
