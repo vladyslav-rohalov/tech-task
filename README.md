@@ -1,7 +1,7 @@
 <h1>Tech task </h1>
 
 <h2>frontend</h2>
-<p>https://tech-task-ashen.vercel.app/</p>
+<p>[https://tech-task-ashen.vercel.app/](https://tech-task-git-main-vladyslav-rohalov.vercel.app/)</p>
 
 <h2>backend</h2>
 <p>https://teck-task-bakend.onrender.com/</p>
