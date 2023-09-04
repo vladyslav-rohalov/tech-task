@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/app/redux/store";
 import { deletePost } from "@/app/redux/posts/operations";
 import { Card, CardContent, Typography, Box, Divider } from "@mui/material";
+import { Badge } from "@mui/material";
 import { useAuth } from "@/app/hooks/useAuth";
 import AddCommentIcon from "@mui/icons-material/AddComment";
 import UserInfo from "./userInfo/userInfo";
@@ -59,7 +60,7 @@ export default function PostItem({ post }: { post: IPost }) {
   const id = open ? "simple-popover" : undefined;
 
   return (
-    <Card id={_id} sx={{ position: "relative", height: 280 }}>
+    <Card id={_id} sx={{ position: "relative", height: 300 }}>
       <CardContent>
         <UserInfo
           userUrl={userUrl}
@@ -103,17 +104,31 @@ export default function PostItem({ post }: { post: IPost }) {
               width: "calc(100% - 32px)",
             }}
           >
-            <Divider sx={{ my: 1 }} />
+            <Divider sx={{ my: 2 }} />
             <Link
               href={postUrl}
               style={{
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
+                // marginTop: "8px",
               }}
             >
-              <AddCommentIcon sx={{ mr: 1, color: "primary.accent" }} />
-              <Typography sx={{ color: "primary.accent" }}>
+              <Badge
+                badgeContent={post.comments?.length}
+                color="primary"
+                sx={{
+                  "& .MuiBadge-badge": {
+                    fontSize: 9,
+                    height: 15,
+                    minWidth: 15,
+                  },
+                }}
+              >
+                <AddCommentIcon sx={{ mr: 1, color: "primary.accent" }} />
+              </Badge>
+
+              <Typography sx={{ color: "primary.accent", ml: 1 }}>
                 comment post
               </Typography>
             </Link>
