@@ -11,13 +11,14 @@ import { useAuth } from "@/app/hooks/useAuth";
 import AddCommentIcon from "@mui/icons-material/AddComment";
 import UserInfo from "./userInfo/userInfo";
 import EditPostModal from "../../editModal/modal";
+import { usePathname } from "next/navigation";
 
 export default function PostItem({ post }: { post: IPost }) {
   const [anchorEl, setAnchorEl] = useState<
     (EventTarget & HTMLButtonElement) | null
   >(null);
   const [openModal, setOpenModal] = useState(false);
-
+  const path = usePathname();
   const dispatch = useDispatch<AppDispatch>();
 
   const { _id, title, body, owner } = post;
@@ -119,7 +120,11 @@ export default function PostItem({ post }: { post: IPost }) {
           </Box>
         )}
       </CardContent>
-      <EditPostModal open={openModal} handleClose={handleCloseModal} post={post}/>
+      <EditPostModal
+        open={openModal}
+        handleClose={handleCloseModal}
+        post={post}
+      />
     </Card>
   );
 }

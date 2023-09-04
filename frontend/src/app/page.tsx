@@ -17,24 +17,6 @@ export default function Home() {
           Best micro blog platform for you
         </Typography>
 
-        <Typography component="h2" variant="h5" sx={{ mb: 2 }}>
-          To go further log in to the site
-          <Link
-            href="/authorization"
-            style={{ color: "#586ba4", textDecoration: "underline" }}
-          >
-            Log In
-          </Link>
-        </Typography>
-        <Typography component="h2" variant="h5" sx={{ mb: 2 }}>
-          After login you can see Posts
-          <Link
-            href="/posts"
-            style={{ color: "#586ba4", textDecoration: "underline" }}
-          >
-            Posts
-          </Link>
-        </Typography>
         <Image
           style={{
             position: "absolute",
