@@ -5,6 +5,7 @@ import { AppDispatch } from "@/app/redux/store";
 import { refreshUser } from "@/app/redux/auth/operations";
 import { AppBar, Container, Toolbar } from "@mui/material";
 import Logo from "./logo/logo";
+import Nav from "./nav/nav";
 import PersonalAccount from "./personalAccount/personalAccount";
 
 export default function Header() {
@@ -33,6 +34,7 @@ export default function Header() {
           sx={{ display: "flex", justifyContent: "space-between" }}
         >
           <Logo />
+          <Nav />
           <PersonalAccount />
         </Toolbar>
       </Container>

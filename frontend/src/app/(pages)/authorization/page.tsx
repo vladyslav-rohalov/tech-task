@@ -16,7 +16,7 @@ export default function Authorization() {
   const [showPassword, setShowPassword] = useState(false);
 
   const dispatch = useDispatch<AppDispatch>();
-  const { isLogin, isLoading } = useAuth();
+  const { isLogin } = useAuth();
   if (isLogin) redirect("/posts");
 
   const handleShowPassword = () => setShowPassword(!showPassword);
@@ -41,18 +41,14 @@ export default function Authorization() {
         mt: 12,
       }}
     >
-      {isLoading ? (
-        <Spinner />
-      ) : (
-        <Auth
-          toggleAuth={handleAuthMethod}
-          login={login}
-          showPassword={showPassword}
-          handleShowPassword={handleShowPassword}
-          handleLogin={handleLogin}
-          handleRegister={handleRegister}
-        />
-      )}
+      <Auth
+        toggleAuth={handleAuthMethod}
+        login={login}
+        showPassword={showPassword}
+        handleShowPassword={handleShowPassword}
+        handleLogin={handleLogin}
+        handleRegister={handleRegister}
+      />
     </Container>
   );
 }
